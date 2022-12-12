@@ -33,8 +33,6 @@ public class BdLivro {
         this.conexao = CriaConexao.getConexao();
     }
     /* <-CONEXÃO COM O BD---- */
-   
-   
     
     /* ----LIVRO-> */
     
