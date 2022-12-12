@@ -34,6 +34,8 @@ public class BdMulta {
     /* ----MULTA-> */
     
     // CREATE - Adiciona um registro
+    /*@ requires m != null;
+    @*/
     public void adicionaMulta(Multa m) throws SQLException {
         // Prepara conexão p/ receber o comando SQL
         String sql = "INSERT INTO multa(id_cliente, descricao, valor) VALUES(?, ?, ?)";       
@@ -46,13 +48,16 @@ public class BdMulta {
         stmt.setString(2, m.getDescricao());
         stmt.setString(3, String.valueOf(m.getValor()));
         
-        // O stmt executa o comando SQL no BD, e fecha a conexão
+        // O stmt executa o comando SQL no BD, e fecha a conexÃ£o
         stmt.execute();
         stmt.close();
         
     }
     
     // SELECT - Retorna uma lista com o resultado da consulta
+    /*@ requires id != null;
+    @ requires id != "";
+    @*/
     public List<Multa> getLista(String id) throws SQLException{
         // Prepara conexão p/ receber o comando SQL
         String sql = "SELECT * FROM multa WHERE id_multa like ?";
@@ -88,6 +93,9 @@ public class BdMulta {
     }
     
     // SELECT - Retorna uma lista com as multas de um determinado cliente
+    /*@ requires id_cliente != null;
+    @ requires id_cliente != "";
+    @*/
     public List<Multa> getListaMultaPorCliente(String id_cliente) throws SQLException{  
         // Prepara conexão p/ receber o comando SQL
         String sql = "SELECT multa.id_multa, multa.id_cliente, multa.descricao, multa.valor " +
@@ -127,9 +135,14 @@ public class BdMulta {
     }
     
     // SELECT - Retorna o valor total das multas de um cliente
+    /*@ requires id_cliente != null;
+    @ requires id_cliente != "";
+    @ ensures totalMulta != null;
+    @ ensures totalMulta != "";
+    @*/
     public String totalMultaCliente(String id_cliente) throws SQLException {
         System.out.println("asdj89asduasd8asd8");
-        // Prepara conexão p/ receber o comando SQL
+        // Prepara conexÃ£o p/ receber o comando SQL
         String sql = "SELECT SUM(multa.valor) AS totalMulta FROM multa "
                 + "INNER JOIN cliente ON multa.id_cliente = cliente.id_cliente "
                 + "WHERE cliente.id_cliente = ? "
@@ -156,6 +169,9 @@ public class BdMulta {
     }
     
     // DELETE - Apaga registros
+    /*@ requires id != null;
+    @ requires 0 < id;
+    @*/
     public void remove(int id) throws SQLException {       
         // Prepara conexão p/ receber o comando SQL
         String sql = "DELETE FROM multa WHERE id_multa=?";
@@ -171,6 +187,9 @@ public class BdMulta {
     }
     
     // DELETE - Apaga todas as multas
+    /*@ requires id != null;
+    @ requires id != "";
+    @*/
     public void removeMultas(String id) throws SQLException {       
         // Prepara conexão p/ receber o comando SQL
         String sql = "DELETE FROM multa WHERE id_cliente=?";

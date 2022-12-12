@@ -34,8 +34,10 @@ public class BdEmprestimo {
     /* ----EMPRESTIMO-> */
     
     // CREATE - Adiciona um registro
+    /*@ requires e != null;
+    @*/
     public void adicionaEmprestimo(Emprestimo e) throws SQLException {
-        // Prepara conexão p/ receber o comando SQL
+        // Prepara conexÃ£o p/ receber o comando SQL
         String sql = "INSERT INTO emprestimo(id_cliente, id_livro, data_emprestimo, data_devolucao) VALUES(?, ?, ?, ?)";       
         PreparedStatement stmt;
         // stmt recebe o comando SQL
@@ -54,8 +56,11 @@ public class BdEmprestimo {
     }
     
     // SELECT - Retorna uma lista com o resultado da consulta
+    /*@ requires id != null;
+    @ requires id != "";
+    @*/
     public List<Emprestimo> getLista(String id) throws SQLException{
-        // Prepara conexão p/ receber o comando SQL
+        // Prepara conexÃ£o p/ receber o comando SQL
         String sql = "SELECT * FROM emprestimo WHERE id_emprestimo like ?";
         PreparedStatement stmt = this.conexao.prepareStatement(sql);
         stmt.setString(1, id);
@@ -89,9 +94,12 @@ public class BdEmprestimo {
         return lista;          
     }
     
-    // SELECT - Retorna uma lista com as multas de um clientes epecífico
+    // SELECT - Retorna uma lista com as multas de um clientes específico
+    /*@ requires id_cliente != null;
+    @ requires id_cliente != "";
+    @*/
     public List<Emprestimo> getListaPorCliente(String id_cliente) throws SQLException{
-        // Prepara conexão p/ receber o comando SQL
+        // Prepara conexÃ£o p/ receber o comando SQL
         String sql = "SELECT emprestimo.id_emprestimo, emprestimo.id_cliente, emprestimo.id_livro, emprestimo.data_emprestimo, emprestimo.data_devolucao" +
                     " FROM emprestimo" +
                     " INNER JOIN cliente" +
@@ -130,9 +138,12 @@ public class BdEmprestimo {
     }
     
     // SELECT - Verifica se o cliente tem alguma multa
+    /*@ requires id_cliente != null;
+    @ requires id_cliente != "";
+    @*/
     public boolean verificaMultaCliente(String id_cliente) throws SQLException{
 
-// Prepara conexão p/ receber o comando SQL
+// Prepara conexÃ£o p/ receber o comando SQL
         String sql = "SELECT COUNT(multa.id_cliente) AS quantMulta" +
                         " FROM multa" +
                         " WHERE id_cliente = ?;";
@@ -159,6 +170,9 @@ public class BdEmprestimo {
     }
     
     // DELETE - Apaga registros
+    /*@ requires id != null;
+    @ requires 0 < id;
+    @*/
     public void remove(int id) throws SQLException {       
         // Prepara conexão p/ receber o comando SQL
         String sql = "DELETE FROM emprestimo WHERE id_emprestimo=?";
