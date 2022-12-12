@@ -58,7 +58,7 @@ public class BdLivro {
         stmt.setString(5, l.getDisponibilidade());
         
         // O stmt executa o comando SQL no BD, e fecha a conexão
-        //stmt.execute();
+        stmt.execute();
         stmt.close();    
     }
     
