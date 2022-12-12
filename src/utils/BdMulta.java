@@ -137,8 +137,8 @@ public class BdMulta {
     // SELECT - Retorna o valor total das multas de um cliente
     /*@ requires id_cliente != null;
     @ requires id_cliente != "";
-    @ ensures \result != null
-    @ ensures \result != ""
+    @ ensures \result != null;
+    @ ensures \result != "";
     @*/
     public String totalMultaCliente(String id_cliente) throws SQLException {
         System.out.println("asdj89asduasd8asd8");
