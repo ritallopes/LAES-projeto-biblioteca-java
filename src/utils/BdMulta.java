@@ -169,8 +169,7 @@ public class BdMulta {
     }
     
     // DELETE - Apaga registros
-    /*@ requires id != null;
-    @ requires 0 < id;
+    /*@ requires 0 <= id;
     @*/
     public void remove(int id) throws SQLException {       
         // Prepara conexão p/ receber o comando SQL
